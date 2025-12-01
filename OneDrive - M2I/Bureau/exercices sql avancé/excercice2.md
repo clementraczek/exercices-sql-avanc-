@@ -76,3 +76,39 @@ SELECT *
 FROM customer_revenue
 WHERE completed_orders >= 2;
 ---
+
+###4
+
+CREATE INDEX idx_daily_sales_order_date
+ON daily_sales(order_date);
+
+
+CREATE INDEX idx_customer_revenue_total
+ON customer_revenue(total_revenue DESC);
+
+
+### 5
+
+INSERT INTO orders (order_id, customer_id, order_date, status)
+VALUES (7, 2, DATE '2024-05-04', 'COMPLETED');
+
+INSERT INTO order_items (order_item_id, order_id, product_id, quantity, unit_price) VALUES
+    (8, 7, 3, 1, 89.00),
+    (9, 7, 4, 1, 19.90);
+
+
+SELECT *
+FROM order_summary
+WHERE order_id = 7;
+
+SELECT *
+FROM daily_sales
+WHERE order_date = '2024-05-04';
+
+REFRESH MATERIALIZED VIEW daily_sales;
+
+
+SELECT *
+FROM daily_sales
+WHERE order_date = '2024-05-04';
+
