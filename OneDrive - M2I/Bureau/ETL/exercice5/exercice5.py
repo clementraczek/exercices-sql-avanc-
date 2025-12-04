@@ -14,8 +14,6 @@ meteo_data = []
 
 #2
 
-print("Récupération des données..")
-
 for city in VILLES: 
     params = {
         'q': city,
